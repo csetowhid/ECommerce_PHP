@@ -432,34 +432,72 @@
 })(jQuery);
 
 
-// function send_message(){
-  // var name=jQuery("#name").val();
-  // var email=jQuery("#email").val();
-  // var mobile=jQuery("#mobile").val();
-  // var message=jQuery("#message").val();
+function send_message(){
+  var name=jQuery("#name").val();
+  var email=jQuery("#email").val();
+  var mobile=jQuery("#mobile").val();
+  var message=jQuery("#message").val();
 
-  // if(name==""){
-  //   alert('Please Enter Name');
-  // }
-  // else if(email==""){
-  //   alert('Please Enter Valid Email');
-  // }
-  // else if(mobile==""){
-  //   alert('Please Enter Mobile Number');
-  // }
-  // else if(message==""){
-  //   alert('Please Enter Your Message');
-  // }
-  // else{
-  //   jQuery.ajax({
-  //     url:'send_message.php',
-  //     type:'post',
-  //     data:'name='+name+'&email='+email+'&mobile='+mobile+'&message='+message,
-  //     success:function(result){
-  //       alert(result);
-  //     }
-  //   });
-  // }
+  if(name==""){
+    alert('Please Enter Name');
+  }
+  else if(email==""){
+    alert('Please Enter Valid Email');
+  }
+  else if(mobile==""){
+    alert('Please Enter Mobile Number');
+  }
+  else if(message==""){
+    alert('Please Enter Your Message');
+  }
+  else{
+    jQuery.ajax({
+      url:'send_message.php',
+      type:'post',
+      data:'name='+name+'&email='+email+'&mobile='+mobile+'&message='+message,
+      success:function(result){
+        alert(result);
+      }
+    });
+  }
 
-// }
-
+}
+function user_register() {
+  jQuery('.field_error').html('');
+  var name=jQuery("#name").val();
+  var email=jQuery("#email").val();
+  var mobile=jQuery("#mobile").val();
+  var password=jQuery("#password").val();
+  var is_error='';
+  if(name==""){
+    jQuery('#name_error').html('Please Enter Name');
+    is_error='yes';
+  }
+  if(email==""){
+    jQuery('#email_error').html('Please Enter Email');
+    is_error='yes';
+  }
+  if(mobile==""){
+    jQuery('#mobile_error').html('Please Enter Mobile');
+    is_error='yes';
+  }
+  if(password==""){
+    jQuery('#password_error').html('Please Enter Password');
+    is_error='yes';
+  }
+  if(is_error==''){
+    jQuery.ajax({
+      url:'register_submit.php',
+      type:'post',
+      data:'name='+name+'&email='+email+'&mobile='+mobile+'&password='+password,
+      success:function(result){
+        if(result=='email_present') {
+          jQuery('#email_error').html('Email Already Exist'); 
+        }
+        if (result=='insert'){
+          jQuery('.register_msg p').html('Thank You For Registration'); 
+        }
+      }
+    });
+  }
+}
