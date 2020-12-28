@@ -1,7 +1,17 @@
 <?php 
 require('top.php');
 $product_id=mysqli_real_escape_string($con,$_GET['id']);
+
+if($product_id>0){
 $get_product=get_product($con,'','',$product_id);
+}
+else{
+    ?>
+    <script>
+        window.location.href='index.php';
+    </script>
+    <?php 
+}
 ?>
         <!-- Start Bradcaump area -->
         <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/4.jpg) no-repeat scroll center center / cover ;">
@@ -62,9 +72,10 @@ $get_product=get_product($con,'','',$product_id);
                                             <li><a href="#"><?php echo $get_product['0']['categories']?></a></li>
                                         </ul>
                                     </div>
-                                    
+                                
                                     </div>
                                 </div>
+                                <a class="fr__btn" href="#">Add To Cart</a>
                             </div>
                         </div>
                     </div>
