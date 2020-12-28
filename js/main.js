@@ -501,3 +501,32 @@ function user_register() {
     });
   }
 }
+function user_login(){
+  jQuery('.field_error').html('');
+  var email=jQuery("#login_email").val();
+  var password=jQuery("#login_password").val();
+  var is_error='';
+  if(email==""){
+    jQuery('#login_email_error').html('Please Enter Email');
+    is_error='yes';
+  }
+  if(password==""){
+    jQuery('#login_password_error').html('Please Enter Password');
+    is_error='yes';
+  }
+  if(is_error==''){
+    jQuery.ajax({
+      url:'login_submit.php',
+      type:'post',
+      data:'&email='+email+'&password='+password,
+      success:function(result){
+        if(result=='wrong') {
+          jQuery('.login_msg p').html('Please Enter Valid Credintial'); 
+        }
+        if (result=='valid'){
+          window.location.href='index.php';
+        }
+      }
+    });
+  }
+}
