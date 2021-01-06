@@ -75,10 +75,10 @@ require('top.php');
     <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="buttons-cart--inner">
     <div class="buttons-cart">
-    <a href="#">Continue Shopping</a>
+    <a href="<?php echo SITE_PATH?>">Continue Shopping</a>
     </div>
     <div class="buttons-cart checkout--btn">
-    <a href="#">checkout</a>
+    <a href="<?php echo SITE_PATH?>checkout.php">checkout</a>
                                         </div>
                                     </div>
                                 </div>
