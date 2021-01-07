@@ -7,6 +7,48 @@ if(!isset($_SESSION['cart']) || count($_SESSION['cart'])==0) {
     </script>
     <?php
 }
+
+$cart_total=0;
+
+if(isset($_POST['submit'])){
+    $address=get_safe_value($con,$_POST['address']);
+    $city=get_safe_value($con,$_POST['city']);
+    $pincode=get_safe_value($con,$_POST['pincode']);
+    $payment_type=get_safe_value($con,$_POST['payment_type']);
+    $user_id=$_SESSION['USER_ID'];
+    foreach ($_SESSION['cart'] as $key => $val) {
+        $productArr=get_product($con,'','',$key);
+        $price=$productArr[0]['price'];
+        $qty=$val['qty'];
+        $cart_total=$cart_total+($price*$qty);
+}
+    $total_price=$cart_total;
+    $payment_status='pending';
+    if ($payment_type==='cod') {
+        $payment_status='success';
+    }
+    $order_status='pending';
+    $added_on=date('Y-m-d h:i:s');
+
+    mysqli_query($con,"insert into `order`(user_id,address,city,pincode,payment_type,total_price,payment_status,order_status,added_on) 
+        values('$user_id', '$address','$city','$pincode','$payment_type','$total_price','$payment_status','$order_status','$added_on')");
+
+    $order_id=mysqli_insert_id($con);
+    foreach ($_SESSION['cart'] as $key => $val) {
+        $productArr=get_product($con,'','',$key);
+        $price=$productArr[0]['price'];
+        $qty=$val['qty'];
+mysqli_query($con,"insert into `order_details`(order_id,product_id,qty,price) values('$order_id','$key','$qty','$price')");
+}
+unset($_SESSION['cart'])
+     ?>
+    <script>
+        window.location.href='thank_you.php';
+    </script>
+    <?php
+
+
+}
 ?>
                 <!-- Start Bradcaump area -->
         <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/4.jpg) no-repeat scroll center center / cover ;">
@@ -108,47 +150,27 @@ if(!isset($_SESSION['cart']) || count($_SESSION['cart'])==0) {
                          <div class="<?php echo $accordian_class ?>">
                                         Address Information
                                     </div>
+                                    <form method="post">
                                     <div class="accordion__body">
                                         <div class="bilinfo">
-                                            <form action="#">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="single-input">
-                                                            <input type="text" placeholder="First name">
+    <input type="text" name="address" placeholder="Street Address" required>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
+
+                                                    <div class="col-md-6">
                                                         <div class="single-input">
-                                                            <input type="text" placeholder="Street Address">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="single-input">
-                                                            <input type="text" placeholder="Apartment/Block/House (optional)">
+            <input type="text" name="city" placeholder="City/State" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="single-input">
-                                                            <input type="text" placeholder="City/State">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="single-input">
-                                                            <input type="text" placeholder="Post code/ zip">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="single-input">
-                                                            <input type="email" placeholder="Email address">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="single-input">
-                                                            <input type="text" placeholder="Phone number">
+            <input type="text" name="pincode" placeholder="Post code/ zip" required>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
                                         </div>
                                     </div>
                 <div class="<?php echo $accordian_class ?>">
@@ -157,13 +179,14 @@ if(!isset($_SESSION['cart']) || count($_SESSION['cart'])==0) {
                                     <div class="accordion__body">
                                         <div class="paymentinfo">
                                             <div class="single-method">
-                                                <a href="#"><i class="zmdi zmdi-long-arrow-right"></i>Check/ Money Order</a>
+COD <input type="radio" name="payment_type" value="COD" required> &nbsp;&nbsp;
+aamar Pay <input type="radio" name="payment_type" value="aamar Pay" required>
                                             </div>
-                                            <div class="single-method">
-                                                <a href="#" class="paymentinfo-credit-trigger"><i class="zmdi zmdi-long-arrow-right"></i>Credit Card</a>
-                                            </div>
+                                         
                                         </div>
                                     </div>
+                                    <input type="submit" name="submit">
+                                    </form>
                                 </div>
                             </div>
                         </div>
