@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
     if ($payment_type==='cod') {
         $payment_status='success';
     }
-    $order_status='pending';
+    $order_status='1';
     $added_on=date('Y-m-d h:i:s');
 
     mysqli_query($con,"insert into `order`(user_id,address,city,pincode,payment_type,total_price,payment_status,order_status,added_on) 

@@ -43,7 +43,7 @@ require('top.php');
                                         <tbody>
         <?php
         $uid=$_SESSION['USER_ID'];
-        $res=mysqli_query($con,"select * from `order` where user_id='$uid'");
+        $res=mysqli_query($con,"select `order`.*,order_status.name as order_status_str from `order`,order_status where `order`.user_id='$uid' and order_status.id=`order`.order_status");
         while ($row=mysqli_fetch_assoc($res)) {
          ?>
                                             <tr>
@@ -56,7 +56,7 @@ require('top.php');
 </span></td>
 <td class="product-price"><span class="amount"><?php echo $row['payment_type'] ?></span></td>
 <td class="product-price"><span class="amount"><?php echo $row['payment_status'] ?></span></td>
-<td class="product-stock-status"><span class="wishlist-in-stock"><?php echo $row['order_status'] ?></span></td>
+<td class="product-stock-status"><span class="wishlist-in-stock"><?php echo $row['order_status_str'] ?></span></td>
 
                                             </tr>
                                     <?php } ?>
