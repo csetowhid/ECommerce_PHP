@@ -29,7 +29,8 @@ $totalProduct=$obj->totalProduct();
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/custom.css">
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="js/main.js"></script>
+    <!-- <script src="js/main.js"></script> -->
+    <script src="js/custom.js"></script>
 </head>
 
 <body>
