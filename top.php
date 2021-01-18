@@ -74,6 +74,9 @@ $totalProduct=$obj->totalProduct();
                             </div>
                             <div class="col-md-3 col-lg-2 col-sm-4 col-xs-4">
                                 <div class="header__right">
+                                    <div class="header__search search search__open">
+                                        <a href="#"><i class="icon-magnifier icons"></i></a>
+                                    </div>
                 <div class="header__account">
                     <?php if(isset($_SESSION['USER_LOGIN'])) {
 echo '<a href="logout.php">Logout</a> <a href="my_order.php">My Order</a>';
@@ -97,3 +100,24 @@ echo '<a href="logout.php">Logout</a> <a href="my_order.php">My Order</a>';
             <!-- End Mainmenu Area -->
         </header>
         <!-- End Header Area -->
+        <div class="body__overlay"></div>
+         <div class="offset__wrapper">
+            <!-- Start Search Popap -->
+            <div class="search__area">
+                <div class="container" >
+                    <div class="row" >
+                        <div class="col-md-12" >
+                            <div class="search__inner">
+                                <form action="search.php" method="get">
+            <input placeholder="Search here... " type="text" name="str">
+                                    <button type="submit"></button>
+                                </form>
+                                <div class="search__close__btn">
+                                    <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -30,7 +30,7 @@ if (isset($_POST['update_order_status'])) {
                             </thead>
                             <tbody>
         <?php
-        $uid=$_SESSION['USER_ID'];
+        // $uid=$_SESSION['USER_ID'];
         $res=mysqli_query($con,"select distinct(order_details.id), order_details.*,product.name,product.image,`order`.address,`order`.city,`order`.pincode from order_details,product,`order` where order_details.order_id='$order_id' and order_details.product_id=product.id");
         $total_price=0;
         while ($row=mysqli_fetch_assoc($res)) {
