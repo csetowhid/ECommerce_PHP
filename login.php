@@ -81,12 +81,20 @@ if(isset($_SESSION['USER_LOGIN']) && $_SESSION['USER_LOGIN']=='yes'){
                                         </div>
     <span class="field_error" id="name_error"></span>
                                     </div>
+
                                     <div class="single-contact-form">
                                         <div class="contact-box name">
-    <input type="email" id="email" name="email" placeholder="Your Email*" style="width:100%">
+    <input type="email" id="email" name="email" placeholder="Your Email*" style="width:45%">
+    <button type="button" class="fv-btn email_sent_otp height_60px" onclick="email_sent_otp()">Send OTP</button>
+
+    <input type="text" id="email_otp" class="email_verify_otp" placeholder="OTP" style="width:45%">
+
+    <button type="button" class="fv-btn email_verify_otp height_60px" onclick="email_verify_otp()">Verify OTP</button>
+    <span id="email_otp_result"></span>
                                         </div>
     <span class="field_error" id="email_error"></span>
                                     </div>
+
                                     <div class="single-contact-form">
                                         <div class="contact-box name">
     <input type="text" id="mobile" name="mobile" placeholder="Your Mobile*" style="width:100%">
@@ -116,5 +124,58 @@ if(isset($_SESSION['USER_LOGIN']) && $_SESSION['USER_LOGIN']=='yes'){
         </section>
     </div>
     <!-- Body main wrapper end -->
+    <script>
+        function email_sent_otp() {
+            jQuery('#email_error').html('');
+            var email=jQuery('#email').val();
+            if(email=='') {
+                jQuery('#email_error').html('Please Enter Email ID');
+            }
+            else{
+                jQuery('.email_sent_otp').html('Please Wait...');
+                jQuery('.email_sent_otp').attr('disabled',true);
+            jQuery.ajax({
+                url:'send_otp.php',
+                type:'post',
+                data:'email='+email+'&type=email',
+                success:function(result){
+                    if (result=='done') {
+                        jQuery('#email').attr('disabled',true);
+                        jQuery('.email_verify_otp').show();
+                        jQuery('.email_sent_otp').hide();
+                    }else{
+                        jQuery('.email_sent_otp').html('Send OTP');
+                jQuery('.email_sent_otp').attr('disabled',false);
+                        jQuery('#email_error').html('Please Try After Sometime');
+                    }
+                }
+            });
+            
+        }
+        }
+        function email_verify_otp() {
+            jQuery('#email_error').html('');
+            var email_otp=jQuery('#email_otp').val();
+            if(email_otp=='') {
+                jQuery('#email_error').html('Please Enter OTP');
+            }
+            else{
+                jQuery.ajax({
+                url:'check_otp.php',
+                type:'post',
+                data:'otp='+email_otp+'&type=email',
+                success:function(result){
+                    if (result=='done') {
+            jQuery('.email_verify_otp').hide();
+            jQuery('#email_otp_result').html('Email id Verified');
+                    }else{
+                        jQuery('#email_error').html('Please Enter Valid OTP');
+                    }
+                }
+            });
 
+            
+            }
+        }
+    </script>
 <?php require('footer.php')?>
