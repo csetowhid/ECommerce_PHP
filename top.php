@@ -59,7 +59,7 @@ $meta_title='Contact Us';
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/custom.css">
-    <style>
+     <style>
         .htc__shopping__cart a span.htc__wishlist {
   background: #c43b68;
   border-radius: 100%;

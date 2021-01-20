@@ -64,6 +64,11 @@ $res=mysqli_query($con,$sql);
 							   <td><?php echo $row['price']?></td>
 							   <td><?php echo $row['qty']?></td>
 							   <td>
+							   	<?php 
+							   	$productSoldQtyByProductId=productSoldQtyByProductId($con,$row['id']);
+							   	$pending_qty=$row['qty']-$productSoldQtyByProductId;
+							   	?>
+							   	Pending Quantity <?php echo $pending_qty ?>
 								<?php
 								if($row['status']==1){
 									echo "<span class='badge badge-complete'><a href='?type=status&operation=deactive&id=".$row['id']."'>Active</a></span>&nbsp;";
