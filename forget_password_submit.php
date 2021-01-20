@@ -2,15 +2,16 @@
 require('connection.inc.php');
 require('functions.inc.php');
 
-$type=get_safe_value($con,$_POST['type']);
-if($type=='email') {
-	$email=get_safe_value($con,$_POST['email']);
-	$otp=rand(1111,9999);
-	$_SESSION['EMAIL_OTP']=$otp;
-	$html="$otp is your OTP. Dont Share";
+$email=get_safe_value($con,$_POST['email']);
+$res=mysqli_query($con,"select * from users where email='$email'");
+$check_user=mysqli_num_rows($res);
 
+if($check_user>0) {
+	$row=mysqli_fetch_assoc($res);
+	$pwd=$row['password'];
+
+	$html="Your Password is <strong>$pwd</strong>";
 	include('smtp/PHPMailerAutoload.php');
-
 	$mail=new PHPMailer(true);
 	$mail->isSMTP();
 	$mail->Host="smtp.gmail.com";
@@ -18,11 +19,11 @@ if($type=='email') {
 	$mail->SMTPSecure="tls";
 	$mail->SMTPAuth=true;
 	$mail->Username="towhidhasang1@gmail.com";
-	$mail->Password="float5844";
+	$mail->Password="flo8678667769t5844";
 	$mail->SetForm=("towhidhasang1@gmail.com");
 	$mail->addAddress($email);
 	$mail->IsHTML(true);
-	$mail->Subject="New OTP";
+	$mail->Subject="Your Password";
 	$mail->Body=$html;
 	$mail->SMTPOptions=array('ssl'=>array(
 		'verify_peer'=>false,
@@ -30,10 +31,13 @@ if($type=='email') {
 		'allow_self_signed'=>false
 	));
 	if ($mail->send()) {
-		echo "done";
+		echo "Please Check Your Email Id For Password";
 	}else{
 		"Error Occured";
 	}
-	
+}else{
+	echo "Email Id Not Register Yet";
+	die();
 }
+
 ?>

@@ -55,6 +55,7 @@ if(isset($_SESSION['USER_LOGIN']) && $_SESSION['USER_LOGIN']=='yes'){
                                     
                                     <div class="contact-btn">
                                         <button type="button" class="fv-btn" onclick="user_login()">Login</button>
+                                        <a href="forget_password.php" class="fv-btn forget_password">Forgot Password</a>
                                     </div>
                                 </form>
                                 <div class="form-output login_msg">
@@ -85,12 +86,15 @@ if(isset($_SESSION['USER_LOGIN']) && $_SESSION['USER_LOGIN']=='yes'){
                                     <div class="single-contact-form">
                                         <div class="contact-box name">
     <input type="email" id="email" name="email" placeholder="Your Email*" style="width:45%">
+
     <button type="button" class="fv-btn email_sent_otp height_60px" onclick="email_sent_otp()">Send OTP</button>
-
     <input type="text" id="email_otp" class="email_verify_otp" placeholder="OTP" style="width:45%">
-
     <button type="button" class="fv-btn email_verify_otp height_60px" onclick="email_verify_otp()">Verify OTP</button>
     <span id="email_otp_result"></span>
+
+
+
+
                                         </div>
     <span class="field_error" id="email_error"></span>
                                     </div>
@@ -98,6 +102,16 @@ if(isset($_SESSION['USER_LOGIN']) && $_SESSION['USER_LOGIN']=='yes'){
                                     <div class="single-contact-form">
                                         <div class="contact-box name">
     <input type="text" id="mobile" name="mobile" placeholder="Your Mobile*" style="width:100%">
+
+    <!-- <button type="button" class="fv-btn mobile_sent_otp height_60px" onclick="mobile_sent_otp()">Send OTP</button>
+    <input type="text" id="mobile_otp" class="mobile_verify_otp" placeholder="OTP" style="width:45%">
+    <button type="button" class="fv-btn mobile_verify_otp height_60px" onclick="mobile_verify_otp()">Verify OTP</button>
+    <span id="mobile_otp_result"></span> -->
+
+
+
+
+
                                         </div>
     <span class="field_error" id="mobile_error"></span>
                                     </div>
@@ -177,5 +191,59 @@ if(isset($_SESSION['USER_LOGIN']) && $_SESSION['USER_LOGIN']=='yes'){
             
             }
         }
+        //Phone.........................
+
+        // function mobile_sent_otp() {
+        //     jQuery('#mobile_error').html('');
+        //     var mobile=jQuery('#mobile').val();
+        //     if(mobile=='') {
+        //         jQuery('#mobile_error').html('Please Enter Mobile Number');
+        //     }
+        //     else{
+        //         jQuery('.mobile_sent_otp').html('Please Wait...');
+        //         jQuery('.mobile_sent_otp').attr('disabled',true);
+        //     jQuery.ajax({
+        //         url:'send_otp.php',
+        //         type:'post',
+        //         data:'mobile='+mobile+'&type=mobile',
+        //         success:function(result){
+        //             if (result=='done') {
+        //                 jQuery('#mobile').attr('disabled',true);
+        //                 jQuery('.mobile_verify_otp').show();
+        //                 jQuery('.mobile_sent_otp').hide();
+        //             }else{
+        //                 jQuery('.mobile_sent_otp').html('Send OTP');
+        //         jQuery('.mobile_sent_otp').attr('disabled',false);
+        //                 jQuery('#mobile_error').html('Please Try After Sometime');
+        //             }
+        //         }
+        //     });
+            
+        // }
+        // }
+        // function mobile_verify_otp() {
+        //     jQuery('#mobile_error').html('');
+        //     var mobile_otp=jQuery('#mobile_otp').val();
+        //     if(mobile_otp=='') {
+        //         jQuery('#mobile_error').html('Please Enter OTP');
+        //     }
+        //     else{
+        //         jQuery.ajax({
+        //         url:'check_otp.php',
+        //         type:'post',
+        //         data:'otp='+mobile_otp+'&type=mobile',
+        //         success:function(result){
+        //             if (result=='done') {
+        //     jQuery('.mobile_verify_otp').hide();
+        //     jQuery('#mobile_otp_result').html('Mobile Number Verified');
+        //             }else{
+        //                 jQuery('#mobile_error').html('Please Enter Valid OTP');
+        //             }
+        //         }
+        //     });
+
+            
+        //     }
+        // }
     </script>
 <?php require('footer.php')?>

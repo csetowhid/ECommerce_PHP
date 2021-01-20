@@ -60,6 +60,9 @@ function user_register() {
         if(result=='email_present') {
           jQuery('#email_error').html('Email Already Exist'); 
         }
+        // if(result=='mobile_present') {
+        //   jQuery('#mobile_error').html('Mobile Number Already Exist'); 
+        // }
         if (result=='insert'){
           jQuery('.register_msg p').html('Thank You For Registration'); 
         }
