@@ -41,7 +41,10 @@ $res=mysqli_query($con,$sql);
         while ($row=mysqli_fetch_assoc($res)) {
          ?>
                                             <tr>
-<td class="product-add-to-cart"><a href="order_master_details.php?id=<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a></td>
+<td class="product-add-to-cart"><a href="order_master_details.php?id=<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a>
+<br>
+<a href="../order_pdf.php?id=<?php echo $row['id']?>">PDF</a>
+</td>
 <td class="product-name"><a href="#"><?php echo $row['added_on'] ?></a></td>
 <td class="product-price"><span class="amount">
     <?php echo $row['address'] ?>

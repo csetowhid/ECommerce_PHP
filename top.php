@@ -171,7 +171,7 @@ echo '<li><a href="categories.php?id='.$list['id'].'&sub_categories='.$sub_cat_r
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Account
+         Hi <?php echo $_SESSION['USER_NAME']?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="profile.php">Profile</a>

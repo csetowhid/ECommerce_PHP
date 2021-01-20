@@ -59,12 +59,10 @@ $order_id=get_safe_value($con,$_GET['id']);
                                             </tr>
                                     <?php } ?>
                                     <tr>
-
 <td colspan="3"></td>
 <td class="product-name">Total Price</td>
 <td class="product-stock-status"><?php echo $total_price ?></td>
-
-                                            </tr>
+                                    </tr>
                                         </tbody>
                                     </table>
                                 </div>  
