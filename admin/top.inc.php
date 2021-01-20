@@ -37,6 +37,9 @@ if(isset($_SESSION['ADMIN_LOGIN']) && $_SESSION['ADMIN_LOGIN']!=''){
                      <a href="categories.php"> Categories Master</a>
                   </li>
                   <li class="menu-item-has-children dropdown">
+                     <a href="sub_categories.php">Sub Categories Master</a>
+                  </li>
+                  <li class="menu-item-has-children dropdown">
                      <a href="product.php"> Product Master</a>
                   </li>
 				  <li class="menu-item-has-children dropdown">
