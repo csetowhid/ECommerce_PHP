@@ -3577,7 +3577,10 @@ ul.htc__instagram__posts.owl-carousel li img {
     margin-left: 10px;
     padding: 14px;
 }
-
+.mr15{
+    padding: 15px;
+    margin:5px;
+}
 /*.mobile_verify_otp{
     display: none;
 }
