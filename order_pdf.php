@@ -10,6 +10,9 @@ if (!$_SESSION['ADMIN_LOGIN']) {
 
 $order_id=get_safe_value($con,$_GET['id']);
 
+$coupon_details=mysqli_fetch_assoc(mysqli_query($con,"select coupon_value,coupon_code from `order` where id='$order_id'"));
+$coupon_value=$coupon_details['coupon_value'];
+
 $css=file_get_contents('css/bootstrap.min.css');
 $css.=file_get_contents('style.css');
 
@@ -51,15 +54,24 @@ $html.='<tr>
 <td class="product-stock-stauts">'.$row['price'].'</td>
 <td class="product-add-to-cart">'.$pp.'</td>
 </tr>';}
+
+if ($coupon_value!='') {
 $html.='<tr>
+<td colspan="3"></td>
+<td class="product-name">Coupon Value</td>
+<td class="product-stock-status">'.$coupon_value.'</td>
+                                    </tr>';
+   }     
+   $total_price=$total_price-$coupon_value;
+   $html.='<tr>
 <td colspan="3"></td>
 <td class="product-name">Total Price</td>
 <td class="product-stock-status">'.$total_price.'</td>
                                     </tr>';
-          
-                                        $html.='</tbody>
-                                    </table>
-                                </div>';
+
+          $html.='</tbody>
+           </table>
+           </div>';
 $mpdf=new \Mpdf\Mpdf();
 $mpdf->WriteHTML($css,1);
 $mpdf->WriteHTML($html,2);

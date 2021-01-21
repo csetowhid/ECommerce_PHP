@@ -53,7 +53,8 @@ mysqli_query($con,"insert into `order`(user_id,address,city,pincode,payment_type
         $qty=$val['qty'];
 mysqli_query($con,"insert into `order_details`(order_id,product_id,qty,price) values('$order_id','$key','$qty','$price')");
 }
-unset($_SESSION['cart'])
+unset($_SESSION['cart']);
+setInvoice($con,$order_id);
      ?>
     <script>
         window.location.href='thank_you.php';
