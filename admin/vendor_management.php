@@ -11,18 +11,18 @@ if(isset($_GET['type']) && $_GET['type']!=''){
 		}else{
 			$status='0';
 		}
-		$update_status_sql="update categories set status='$status' where id='$id'";
+		$update_status_sql="update admin_users set status='$status' where id='$id'";
 		mysqli_query($con,$update_status_sql);
 	}
 	
 	if($type=='delete'){
 		$id=get_safe_value($con,$_GET['id']);
-		$delete_sql="delete from categories where id='$id'";
+		$delete_sql="delete from admin_users where id='$id'";
 		mysqli_query($con,$delete_sql);
 	}
 }
 
-$sql="select sub_categories.*,categories.categories from sub_categories,categories where categories.id=sub_categories.categories_id order by sub_categories.sub_categories asc";
+$sql="select * from admin_users where role=1 order by id desc";
 $res=mysqli_query($con,$sql);
 ?>
 <div class="content pb-0">
@@ -31,8 +31,8 @@ $res=mysqli_query($con,$sql);
 		  <div class="col-xl-12">
 			 <div class="card">
 				<div class="card-body">
-				   <h4 class="box-title">Sub Categories </h4>
-				   <h4 class="box-link"><a href="manage_sub_categories.php">Add Sub Categories</a> </h4>
+				   <h4 class="box-title">Vendor Management</h4>
+				   <h4 class="box-link"><a href="manage_vendor_management.php">Add Vendor</a> </h4>
 				</div>
 				<div class="card-body--">
 				   <div class="table-stats order-table ov-h">
@@ -41,8 +41,10 @@ $res=mysqli_query($con,$sql);
 							<tr>
 							   <th class="serial">#</th>
 							   <th>ID</th>
-							   <th>Category</th>
-							   <th>Sub Category</th>
+							   <th>User Name</th>
+							   <th>Password</th>
+							   <th>Email</th>
+							   <th>Mobile</th>
 							   <th></th>
 							</tr>
 						 </thead>
@@ -53,16 +55,19 @@ $res=mysqli_query($con,$sql);
 							<tr>
 							   <td class="serial"><?php echo $i?></td>
 							   <td><?php echo $row['id']?></td>
-							   <td><?php echo $row['categories']?></td>
-							   <td><?php echo $row['sub_categories']?></td>
+							   <td><?php echo $row['username']?></td>
+							   <td><?php echo $row['password']?></td>
+							   <td><?php echo $row['email']?></td>
+							   <td><?php echo $row['mobile']?></td>
 							   <td>
+							   	
 								<?php
 								if($row['status']==1){
 									echo "<span class='badge badge-complete'><a href='?type=status&operation=deactive&id=".$row['id']."'>Active</a></span>&nbsp;";
 								}else{
 									echo "<span class='badge badge-pending'><a href='?type=status&operation=active&id=".$row['id']."'>Deactive</a></span>&nbsp;";
 								}
-								echo "<span class='badge badge-edit'><a href='manage_sub_categories.php?id=".$row['id']."'>Edit</a></span>&nbsp;";
+								echo "<span class='badge badge-edit'><a href='manage_vendor_management.php?id=".$row['id']."'>Edit</a></span>&nbsp;";
 								
 								echo "<span class='badge badge-delete'><a href='?type=delete&id=".$row['id']."'>Delete</a></span>";
 								

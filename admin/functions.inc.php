@@ -22,4 +22,20 @@ function productSoldQtyByProductId($con,$pid){
 	$row=mysqli_fetch_assoc($res);
 	return $row['qty'];
 }
+function isAdmin(){
+	if (!isset($_SESSION['ADMIN_LOGIN'])) {
+		?>
+		<script>
+			window.location.href='login.php';
+		</script>
+		<?php
+	}
+	if ($_SESSION['ADMIN_ROLE']==1) {
+		?>
+		<script>
+			window.location.href='product.php';
+		</script>
+		<?php
+	}
+}
 ?>

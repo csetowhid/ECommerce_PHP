@@ -1,6 +1,6 @@
 <?php
 require('top.inc.php');
-
+isAdmin();
 $order_id=get_safe_value($con,$_GET['id']);
 
 $coupon_details=mysqli_fetch_assoc(mysqli_query($con,"select coupon_value,coupon_code from `order` where id='$order_id'"));

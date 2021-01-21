@@ -54,7 +54,7 @@ mysqli_query($con,"insert into `order`(user_id,address,city,pincode,payment_type
 mysqli_query($con,"insert into `order_details`(order_id,product_id,qty,price) values('$order_id','$key','$qty','$price')");
 }
 unset($_SESSION['cart']);
-setInvoice($con,$order_id);
+//setInvoice($con,$order_id);
      ?>
     <script>
         window.location.href='thank_you.php';
