@@ -30,8 +30,21 @@ if(isset($_POST['submit'])){
     $order_status='1';
     $added_on=date('Y-m-d h:i:s');
 
-    mysqli_query($con,"insert into `order`(user_id,address,city,pincode,payment_type,total_price,payment_status,order_status,added_on) 
-        values('$user_id', '$address','$city','$pincode','$payment_type','$total_price','$payment_status','$order_status','$added_on')");
+if (isset($_SESSION['COUPON_ID'])) {
+    $coupon_id=$_SESSION['COUPON_ID'];
+    $coupon_code=$_SESSION['COUPON_CODE'];
+    $coupon_value=$_SESSION['COUPON_VALUE'];
+    $total_price=$total_price-$coupon_value;
+    unset($_SESSION['COUPON_ID']);
+    unset($_SESSION['COUPON_CODE']);
+    unset($_SESSION['COUPON_VALUE']);
+}else{
+    $coupon_id='';
+    $coupon_code='';
+    $coupon_value='';
+}
+
+mysqli_query($con,"insert into `order`(user_id,address,city,pincode,payment_type,total_price,payment_status,order_status,coupon_id,coupon_value,coupon_code,added_on) values('$user_id', '$address','$city','$pincode','$payment_type','$total_price','$payment_status','$order_status','$coupon_id','$coupon_value','$coupon_code','$added_on')");
 
     $order_id=mysqli_insert_id($con);
     foreach ($_SESSION['cart'] as $key => $val) {
@@ -185,7 +198,7 @@ aamar Pay <input type="radio" name="payment_type" value="aamar Pay" required>
                                          
                                         </div>
                                     </div>
-                                    <input type="submit" name="submit">
+                                    <input type="submit" name="submit" class="fv-btn">
                                     </form>
                                 </div>
                             </div>
@@ -220,14 +233,60 @@ aamar Pay <input type="radio" name="payment_type" value="aamar Pay" required>
                                 </div>
                             <?php } ?>
                             </div>
+
+                            <div class="ordre-details__total" id="coupon_box">
+                                <h5>Coupon Value</h5>
+                                <span class="price" id="coupon_price"></span>
+                            </div>
+
                             <div class="ordre-details__total">
                                 <h5>Order total</h5>
-                                <span class="price"><?php echo $cart_total ?></span>
+                                <span class="price" id="order_total_price"><?php echo $cart_total ?></span>
                             </div>
+                            
+
+                            <div class="ordre-details__total bilinfo">
+            <input type="textbox" id="coupon_str" class="coupon_style mr5">
+            <input type="button" name="submit" class="fv-btn coupon_style" value="Apply Coupon" onclick="set_coupon()">
+                            </div>
+                            <div id="coupon_result"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- cart-main-area end -->
-<?php require('footer.php')?>
+        <script>
+            function set_coupon(){
+                var coupon_str=jQuery('#coupon_str').val();
+                if (coupon_str!='') {
+                    jQuery('#coupon_result').html('');
+                    jQuery.ajax({
+                        url:'set_coupon.php',
+                        type:'post',
+                        data:'coupon_str='+coupon_str,
+                        success:function(result){
+                            var data=jQuery.parseJSON(result);
+                            if(data.is_error=='yes') {
+                                jQuery('#coupon_box').hide();
+                                jQuery('#coupon_result').html(data.dd);
+                                jQuery('#order_total_price').html(data.result);
+                            }
+                            if(data.is_error=='no') {
+                                jQuery('#coupon_box').show();
+                                jQuery('#coupon_price').html(data.dd);
+                                jQuery('#order_total_price').html(data.result);
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+<?php 
+if (isset($_SESSION['COUPON_ID'])) {
+    unset($_SESSION['COUPON_ID']);
+    unset($_SESSION['COUPON_CODE']);
+    unset($_SESSION['COUPON_VALUE']);
+}
+require('footer.php');
+?>

@@ -33,17 +33,17 @@ require('top.php');
                                             <tr>
 
 <th class="product-name"><span class="nobr">Order Id</span></th>
-<th class="product-price"><span class="nobr">Order Date </span></th>
-<th class="product-stock-stauts"><span class="nobr">Address</span></th>
-<th class="product-add-to-cart"><span class="nobr">Payment Type</span></th>
-<th class="product-add-to-cart"><span class="nobr">Payment Status</span></th>
-<th class="product-add-to-cart"><span class="nobr">Order Status</span></th>
+<th class="product-add-to-cart"><span class="nobr">Order Date </span></th>
+<th class="product-add-to-cart"><span class="nobr">Address</span></th>
+<th class="product-stock-stauts"><span class="nobr">Payment Type</span></th>
+<th class="product-stock-stauts"><span class="nobr">Payment Status</span></th>
+<th class="product-stock-stauts"><span class="nobr">Order Status</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
         <?php
         $uid=$_SESSION['USER_ID'];
-        $res=mysqli_query($con,"select `order`.*,order_status.name as order_status_str from `order`,order_status where `order`.user_id='$uid' and order_status.id=`order`.order_status");
+        $res=mysqli_query($con,"select `order`.*,order_status.name as order_status_str from `order`,order_status where `order`.user_id='$uid' and order_status.id=`order`.order_status order by `order`.id desc");
         while ($row=mysqli_fetch_assoc($res)) {
          ?>
                                             <tr>

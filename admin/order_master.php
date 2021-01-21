@@ -10,8 +10,8 @@ if(isset($_GET['type']) && $_GET['type']!=''){
 	}
 }
 
-$sql="select * from users order by id desc";
-$res=mysqli_query($con,$sql);
+// $sql="select * from users order by id desc";
+// $res=mysqli_query($con,$sql);
 ?>
 <div class="content pb-0">
 	<div class="orders">
@@ -37,7 +37,7 @@ $res=mysqli_query($con,$sql);
                             <tbody>
         <?php
         
-        $res=mysqli_query($con,"select `order`.*,order_status.name as order_status_str from `order`,order_status where order_status.id=`order`.order_status");
+        $res=mysqli_query($con,"select `order`.*,order_status.name as order_status_str from `order`,order_status where order_status.id=`order`.order_status order by `order`.id desc");
         while ($row=mysqli_fetch_assoc($res)) {
          ?>
                                             <tr>
